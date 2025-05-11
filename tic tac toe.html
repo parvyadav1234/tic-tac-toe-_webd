@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tic-Tac-Toe Game</title>
+  <style>
+   * {
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Dark blue gradient */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #FFC312; /* Yellow color for the heading */
+}
+
+.game-container {
+  text-align: center;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  margin: 20px 0;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1c1c1c;
+  border: 2px solid #333;
+  font-size: 2em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cell:hover {
+  background-color: #444; /* Slightly lighter background on hover */
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #17a2b8; /* Light blue accent color */
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #138496; /* Darker blue on hover */
+}
+
+#status {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #17a2b8; /* Same light blue accent color for status */
+}
+
+button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="game-container">
+    <h1>Tic-Tac-Toe</h1>
+    <div id="status">Player X's turn</div>
+    <div id="board" class="board">
+      <!-- Dynamically generated game grid will go here -->
+    </div>
+    <button id="reset-btn">Reset Game</button>
+  </div>
+
+  <script>
+    const board = document.getElementById('board');
+    const statusDisplay = document.getElementById('status');
+    const resetButton = document.getElementById('reset-btn');
+
+    let currentPlayer = 'X';  // Player X starts
+    let gameActive = true;
+    let boardState = ['', '', '', '', '', '', '', '', '']; // Empty board state
+
+    // Function to initialize the game board
+    function initializeBoard() {
+      boardState = ['', '', '', '', '', '', '', '', ''];
+      gameActive = true;
+      currentPlayer = 'X';
+      statusDisplay.textContent = "Player X's turn";
+      board.innerHTML = ''; // Clear the board
+
+      for (let i = 0; i < 9; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.setAttribute('data-index', i);
+        cell.addEventListener('click', handleCellClick);
+        board.appendChild(cell);
+      }
+    }
+
+    // Handle cell click
+    function handleCellClick(event) {
+      const index = event.target.getAttribute('data-index');
+      
+      if (boardState[index] !== '' || !gameActive) return; // Cell already filled or game over
+
+      boardState[index] = currentPlayer;
+      event.target.textContent = currentPlayer;
+
+      if (checkWinner()) {
+        statusDisplay.textContent = `Player ${currentPlayer} wins!`;
+        gameActive = false;
+      } else if (boardState.every(cell => cell !== '')) {
+        statusDisplay.textContent = 'It\'s a tie!';
+        gameActive = false;
+      } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        statusDisplay.textContent = `Player ${currentPlayer}'s turn`;
+      }
+    }
+
+    // Check for a winner
+    function checkWinner() {
+      const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
+        [0, 4, 8], [2, 4, 6]               // Diagonals
+      ];
+
+      return winPatterns.some(pattern => {
+        const [a, b, c] = pattern;
+        return boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c];
+      });
+    }
+
+    // Reset game
+    resetButton.addEventListener('click', initializeBoard);
+
+    // Initialize the game on page load
+    initializeBoard();
+  </script>
+
+</body>
+</html>
