@@ -1,16 +1,21 @@
-StyleMe is an AI-driven web application built using Python (with Streamlit and OpenCV) that provides personalized clothing recommendations based on the user’s body type. The aim is to help users find outfits that suit their physical shape, improving their shopping experience and confidence in style.
+Tic Tac Toe is a simple yet classic two-player game built using HTML, CSS, and JavaScript. This web-based version lets two users play in turns on the same screen, with dynamic updates and winner detection. The game is responsive, clean, and fun to play — perfect for learning DOM manipulation, event handling, and game logic in JavaScript.
 
-The system uses computer vision and machine learning techniques to analyze a user's uploaded image or webcam feed and determine their body shape (such as rectangle, hourglass, pear, apple, or inverted triangle). Based on this analysis, the site recommends a curated set of clothing styles and tips tailored to the user's body type.
+🎮 Features
+✅ Two-player gameplay on the same device
 
-💡 Key Features:
-Upload or capture photo for body type detection.
+🔄 Reset button to start a new game
 
-AI model for identifying body shape using image processing.
+🧠 Automatic winner/draw detection
 
-Personalized clothing suggestions with examples and style tips.
+📱 Fully responsive design for mobile and desktop
 
-Clean, mobile-responsive UI using Streamlit.
+🎨 Clean, minimal UI with smooth interactions
 
-Stylish animated background using CSS & HTML integration.
+💡 Well-structured code for easy customization
 
-Privacy-focused: images are processed locally in the browser or server without storage.
+🛠️ Tech Stack
+Frontend: HTML5, CSS3, JavaScript (ES6+)
+
+Design: Flexbox/Grid Layout, CSS transitions
+
+Deployment: GitHub Pages / Netlify / Vercel
